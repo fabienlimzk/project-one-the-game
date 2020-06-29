@@ -8,7 +8,34 @@ container.appendChild(board);
 
 const MINE = '•';
 
-//let size = 10;
+let gameOver = false;
+
+let size = 10;
+
+function toggleFlag(e) {
+
+    e.preventDefault();
+    //TODO
+    let row = e.target.dataset.row;
+    let col = e.target.dataset.col;
+
+    if (!gameOver) {
+        if (data[row][col].isOpened) {
+            return;
+        }
+    
+        data[row][col].isFlagged = !data[row][col].isFlagged;
+    
+        if (data[row][col].isFlagged) {
+            e.target.textContent = "F";
+            return;
+        }
+    
+        e.target.textContent = "";
+    }
+    
+    
+}
 
 function generateGrid(size) {
     let id = 0;
@@ -23,13 +50,14 @@ function generateGrid(size) {
             grid.dataset.row = row;
             grid.dataset.col = col;
             grid.addEventListener("click", clicked);
+            grid.addEventListener("contextmenu", toggleFlag);
             id += 1;
         }
         board.appendChild(rowElement);
     }
 }
 
-generateGrid(10);
+generateGrid(size);
 
 
 function generateGridData(size) {
@@ -44,6 +72,7 @@ function createMine() {
     return {
         isMine: true,
         isOpened: false,
+        isFlagged: false,
     };
 }
 
@@ -53,11 +82,13 @@ function createSpace(minesAround) {
         minesAround,
         isMine: false,
         isOpened: false,
+        isFlagged: false,
     };
 }
 
 
 const mineArray = [];
+let numberOfMines = 10;
 
 function setMine(numberOfMines) {
     while (mineArray.length < numberOfMines) {
@@ -68,24 +99,28 @@ function setMine(numberOfMines) {
             //continue running the loop again
             continue;
         } else {
-            let mineSpace = document.querySelector('#grid_number' + mineGrid);
-            let mine = document.createElement('div');
-            mine.className = "mine";
-            mine.textContent = MINE;
-            mineSpace.appendChild(mine);
+            //let mineSpace = document.querySelector('#grid_number' + mineGrid);
+            //let mine = document.createElement('div');
+            //mine.className = "mine";
+            //mine.textContent = MINE;
+            // mineSpace.textContent = MINE;
+            // mineSpace.appendChild(mine);
             mineArray.push(mineGrid);
-            mine.addEventListener("click", revealGrid);
+            // mine.addEventListener("click", clicked);
         }
     }
     console.log(mineArray);
 }
 
-setMine(10);
+setMine(numberOfMines);
+
+// let displayNumberOfMines= document.querySelector("h3");
+// displayNumberOfMines.textContent = "Number of mines: " + numberOfMines;
 
 
 // Get the mines into the data
 for (let i = 0; i < data.length; i++) {
-    let id = i * 10;
+    let id = i * numberOfMines;
     for (let j = 0; j < data[0].length; j++) {
         if (mineArray.includes(id)) {
             data[i][j] = createMine();
@@ -331,20 +366,22 @@ function clicked(e) {
     let row = e.target.dataset.row;
     let col = e.target.dataset.col;
     
-    // console.log(data[row][col].minesAround);
+    // console.log(data[row][col].isMine);
 
-    if (data[row][col].minesAround != 0) {
-        this.style.backgroundColor = "lightgrey";
-        e.target.innerText = data[row][col].minesAround;
-        data[row][col].isOpened = true;
-    } else if (data[row][col].minesAround == 0) {
-        this.style.backgroundColor = "lightgrey";
-    } 
+    if (!gameOver) {
+        if (data[row][col].minesAround != 0 && !data[row][col].isMine && !data[row][col].isFlagged) {
+            this.style.backgroundColor = "lightgrey";
+            e.target.innerText = data[row][col].minesAround;
+            data[row][col].isOpened = true;
+        } else if (data[row][col].minesAround == 0 && !data[row][col].isMine && !data[row][col].isFlagged) {
+            this.style.backgroundColor = "lightgrey";
+            data[row][col].isOpened = true;
+        } else if (data[row][col].isMine && !data[row][col].isFlagged) {
+            e.target.style.backgroundColor = "red";
+            e.target.textContent = MINE;
+            gameOver = true;
+            alert("Game Over!");
+        } 
+    }
     
-}
-
-
-function revealGrid() {
-    // alert("You lose!")
-    this.style.backgroundColor = "red";
 }
