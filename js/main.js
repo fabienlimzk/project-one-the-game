@@ -1,10 +1,8 @@
-let container = document.createElement("div");
-container.id = "container";
-document.body.appendChild(container);
+let boardContainer = document.getElementById('board-container');
 
-let board = document.createElement("div");
+let board = document.createElement('div');
 board.id = "board";
-container.appendChild(board);
+boardContainer.appendChild(board);
 
 const MINE = '•';
 
@@ -48,11 +46,8 @@ function toggleFlag(e) {
         }
 
         displayNumberOfMines.textContent = "Number of mines: " + numberOfMines;
-        
-        
+    
     }
-    
-    
 }
 
 
