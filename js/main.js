@@ -4,15 +4,13 @@ let board = document.createElement('div');
 board.id = "board";
 boardContainer.appendChild(board);
 
-let selectAll = document.querySelectorAll(".grid");
-
-const MINE = '•';
+let selectAllGrid = document.querySelectorAll(".grid");
 
 let gameOver = false;
 
-let allowFlag = true;
-
 function toggleFlag(e) {
+    let allowFlag = true;
+
     //prevent the right click menu to show
     e.preventDefault();
 
@@ -81,14 +79,14 @@ function generateGridData(size) {
     return gridData;
 }
 
-const data = generateGridData(10);
+const data = generateGridData(size);
 
 
 function createMine() {
     return {
         isMine: true,
         isOpened: false,
-        isFlagged: false,
+        isFlagged: false
     };
 }
 
@@ -98,7 +96,7 @@ function createSpace(minesAround) {
         minesAround,
         isMine: false,
         isOpened: false,
-        isFlagged: false,
+        isFlagged: false
     };
 }
 
@@ -107,7 +105,7 @@ let numberOfMines = 10;
 
 function setMine(numberOfMines) {
     while (mineArray.length < numberOfMines) {
-        let mineGrid = Math.floor(Math.random() * 100);
+        let mineGrid = Math.floor(Math.random() * (size * size));
         console.log("mine is in " + mineGrid);
         //if mineGrid already exists
         if (mineArray.includes(mineGrid)) {
@@ -345,17 +343,19 @@ function clicked(e) {
 
     if (!gameOver) {
         if (data[row][col].minesAround != 0 && !data[row][col].isMine && !data[row][col].isFlagged) {
-            // e.target.style.backgroundColor = "darkgray";
+            data[row][col].isOpened = true;
             e.target.style.backgroundImage = "url('./image/grid-open.png')";
             e.target.innerText = data[row][col].minesAround;
-            data[row][col].isOpened = true;
+            // console.log(data);
         } else if (data[row][col].minesAround == 0 && !data[row][col].isMine && !data[row][col].isFlagged) {
-            e.target.style.backgroundImage = "url('./image/grid-open.png')";
             data[row][col].isOpened = true;
+            e.target.style.backgroundImage = "url('./image/grid-open.png')";
+            revealNeighbours();
+            // console.log(data);
         } else if (data[row][col].isMine && !data[row][col].isFlagged) {
+            data[row][col].isOpened = true;
             e.target.style.backgroundColor = "red";
             e.target.style.backgroundImage = "url('./image/mine.png')";
-            // e.target.textContent = MINE;
             revealAllMines();
             gameOver = true;
             alert("Game Over");
@@ -364,27 +364,51 @@ function clicked(e) {
     
 }
 
-let selectRow = document.querySelectorAll('.row');
+let selectAllRows = document.querySelectorAll('.row');
 
-function revealAllMines(e) {
-    // let row = data-row;
-    // let col = data-col;
-    
+function revealAllMines() {
     for (let i = 0; i < data.length; i++) {
-        let currentRow = selectRow[i];
+        let currentRow = selectAllRows[i];
         for (let j = 0; j < data[i].length; j++) {
             let currentGrid = currentRow.childNodes[j];
             if (data[i][j].isMine) {
+                data[i][j].isOpened = true;
                 currentGrid.style.backgroundImage = "url('./image/mine.png')";
             }
         }
     }
 }
 
-
 // revealAllMines();
-// function beginnerLevel() {
 
+
+function revealNeighbours() {
+    for (let i = 0; i < data.length; i++) {
+        let currentRow = selectAllRows[i];
+        for (let j = 0; j < data[i].length; j++) {
+            let currentGrid = currentRow.childNodes[j];
+            if (data[i][j].minesAround === 0) {
+                data[i][j].isOpened = true;
+                currentGrid.style.backgroundImage = "url('./image/grid-open.png')";
+            }
+        }
+    }
+}
+
+// function gameOver() {
+//     let gameOver = true;
+//     for (let i = 0; i < data.length; i++) {
+//         for (let j = 0; j < data[i].length; j++) {
+//             if (!data[i][j].isOpened) {
+//                 gameOver = false;
+//             }
+//         }
+//     }
+//     return gameOver;
+// }
+
+// function beginnerLevel() {
+ 
 // }
 
 // function intermediateLevel() {
