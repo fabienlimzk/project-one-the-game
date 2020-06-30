@@ -10,7 +10,9 @@ const MINE = '•';
 
 let gameOver = false;
 
-let size = 10;
+//let size = 10;
+
+let allowFlag = true;
 
 function toggleFlag(e) {
 
@@ -23,19 +25,36 @@ function toggleFlag(e) {
         if (data[row][col].isOpened) {
             return;
         }
-    
-        data[row][col].isFlagged = !data[row][col].isFlagged;
-    
-        if (data[row][col].isFlagged) {
-            e.target.textContent = "F";
-            return;
+        
+        if (allowFlag) {
+            if (data[row][col].isFlagged) {
+                e.target.textContent = "";
+                numberOfMines += 1;
+                //if false, become true / if true, become false
+                data[row][col].isFlagged = false;
+            } else if (!data[row][col].isFlagged && numberOfMines > 0) {
+                e.target.textContent = "F";
+                numberOfMines -= 1;
+                data[row][col].isFlagged = true;
+            } else if (numberOfMines === 0) {
+                allowFlag = false;
+            }
+        } else {
+            if (data[row][col].isFlagged) {
+                e.target.textContent = "";
+                // numberOfMines += 1;
+                allowFlag = true;
+            }
         }
-    
-        e.target.textContent = "";
+
+        displayNumberOfMines.textContent = "Number of mines: " + numberOfMines;
+        
+        
     }
     
     
 }
+
 
 function generateGrid(size) {
     let id = 0;
@@ -57,7 +76,7 @@ function generateGrid(size) {
     }
 }
 
-generateGrid(size);
+generateGrid(10);
 
 
 function generateGridData(size) {
@@ -114,8 +133,8 @@ function setMine(numberOfMines) {
 
 setMine(numberOfMines);
 
-// let displayNumberOfMines= document.querySelector("h3");
-// displayNumberOfMines.textContent = "Number of mines: " + numberOfMines;
+let displayNumberOfMines= document.getElementById("display_mines_number");
+displayNumberOfMines.textContent = "Number of mines: " + numberOfMines;
 
 
 // Get the mines into the data
@@ -330,34 +349,6 @@ for (let i = 0; i < data.length; i++) {
 console.log(data);
 
 
-// function gridGenerator() {
-
-//     for (let row = 0; row < size; row++) {
-//         for (let col = 0; col < size; col++) {
-
-//             let grid = document.createElement("div");
-//             grid.className = "grid";
-//             board.appendChild(grid);
-//             grid.dataset.row = row;
-//             grid.dataset.col = col;
-//             grid.addEventListener("click", clicked);
-
-//         }
-//     }
-
-//     let grids = document.querySelectorAll(".grid");
-    
-//     for (let i = 0; i < grids.length; i++) {
-
-//         grids[i].id = "grid_no" + (i + 1);
-
-//     }
-    
-// }
-
-// gridGenerator();
-
-
 function clicked(e) {
     console.log(e.target.id);
     // console.log("row" + e.target.dataset.row);
@@ -370,17 +361,17 @@ function clicked(e) {
 
     if (!gameOver) {
         if (data[row][col].minesAround != 0 && !data[row][col].isMine && !data[row][col].isFlagged) {
-            this.style.backgroundColor = "lightgrey";
+            this.style.backgroundColor = "darkgray";
             e.target.innerText = data[row][col].minesAround;
             data[row][col].isOpened = true;
         } else if (data[row][col].minesAround == 0 && !data[row][col].isMine && !data[row][col].isFlagged) {
-            this.style.backgroundColor = "lightgrey";
+            this.style.backgroundColor = "darkgray";
             data[row][col].isOpened = true;
         } else if (data[row][col].isMine && !data[row][col].isFlagged) {
             e.target.style.backgroundColor = "red";
             e.target.textContent = MINE;
             gameOver = true;
-            alert("Game Over!");
+            alert("Game Over");
         } 
     }
     
