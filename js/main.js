@@ -4,18 +4,18 @@ let board = document.createElement('div');
 board.id = "board";
 boardContainer.appendChild(board);
 
+let selectAll = document.querySelectorAll(".grid");
+
 const MINE = '•';
 
 let gameOver = false;
 
-//let size = 10;
-
 let allowFlag = true;
 
 function toggleFlag(e) {
-
+    //prevent the right click menu to show
     e.preventDefault();
-    //TODO
+
     let row = e.target.dataset.row;
     let col = e.target.dataset.col;
 
@@ -26,12 +26,12 @@ function toggleFlag(e) {
         
         if (allowFlag) {
             if (data[row][col].isFlagged) {
-                e.target.textContent = "";
+                e.target.style.backgroundImage = "url('./image/grid.png')";
                 numberOfMines += 1;
-                //if false, become true / if true, become false
+                // if false, become true / if true, become false
                 data[row][col].isFlagged = false;
             } else if (!data[row][col].isFlagged && numberOfMines > 0) {
-                e.target.textContent = "F";
+                e.target.style.backgroundImage = "url('./image/flag.png')";
                 numberOfMines -= 1;
                 data[row][col].isFlagged = true;
             } else if (numberOfMines === 0) {
@@ -46,16 +46,18 @@ function toggleFlag(e) {
         }
 
         displayNumberOfMines.textContent = "Number of mines: " + numberOfMines;
-    
     }
 }
 
+
+let size = 10;
 
 function generateGrid(size) {
     let id = 0;
     for (let row = 0; row < size; row ++) {
         const rowElement = document.createElement("div");
         rowElement.className = "row";
+        rowElement.id = `row_number${id}`;
         for (let col = 0; col < size; col ++) {
             const grid = document.createElement("div");
             grid.className = "grid";
@@ -71,7 +73,7 @@ function generateGrid(size) {
     }
 }
 
-generateGrid(10);
+generateGrid(size);
 
 
 function generateGridData(size) {
@@ -100,7 +102,6 @@ function createSpace(minesAround) {
     };
 }
 
-
 const mineArray = [];
 let numberOfMines = 10;
 
@@ -113,14 +114,7 @@ function setMine(numberOfMines) {
             //continue running the loop again
             continue;
         } else {
-            //let mineSpace = document.querySelector('#grid_number' + mineGrid);
-            //let mine = document.createElement('div');
-            //mine.className = "mine";
-            //mine.textContent = MINE;
-            // mineSpace.textContent = MINE;
-            // mineSpace.appendChild(mine);
             mineArray.push(mineGrid);
-            // mine.addEventListener("click", clicked);
         }
     }
     console.log(mineArray);
@@ -346,28 +340,57 @@ console.log(data);
 
 function clicked(e) {
     console.log(e.target.id);
-    // console.log("row" + e.target.dataset.row);
-    // console.log("col" + e.target.dataset.col);
-    // this.style.backgroundColor = "lightgrey";
     let row = e.target.dataset.row;
     let col = e.target.dataset.col;
-    
-    // console.log(data[row][col].isMine);
 
     if (!gameOver) {
         if (data[row][col].minesAround != 0 && !data[row][col].isMine && !data[row][col].isFlagged) {
-            this.style.backgroundColor = "darkgray";
+            // e.target.style.backgroundColor = "darkgray";
+            e.target.style.backgroundImage = "url('./image/grid-open.png')";
             e.target.innerText = data[row][col].minesAround;
             data[row][col].isOpened = true;
         } else if (data[row][col].minesAround == 0 && !data[row][col].isMine && !data[row][col].isFlagged) {
-            this.style.backgroundColor = "darkgray";
+            e.target.style.backgroundImage = "url('./image/grid-open.png')";
             data[row][col].isOpened = true;
         } else if (data[row][col].isMine && !data[row][col].isFlagged) {
             e.target.style.backgroundColor = "red";
-            e.target.textContent = MINE;
+            e.target.style.backgroundImage = "url('./image/mine.png')";
+            // e.target.textContent = MINE;
+            revealAllMines();
             gameOver = true;
             alert("Game Over");
         } 
-    }
+    } 
     
 }
+
+let selectRow = document.querySelectorAll('.row');
+
+function revealAllMines(e) {
+    // let row = data-row;
+    // let col = data-col;
+    
+    for (let i = 0; i < data.length; i++) {
+        let currentRow = selectRow[i];
+        for (let j = 0; j < data[i].length; j++) {
+            let currentGrid = currentRow.childNodes[j];
+            if (data[i][j].isMine) {
+                currentGrid.style.backgroundImage = "url('./image/mine.png')";
+            }
+        }
+    }
+}
+
+
+// revealAllMines();
+// function beginnerLevel() {
+
+// }
+
+// function intermediateLevel() {
+
+// }
+
+// function expertLevel() {
+
+// }
