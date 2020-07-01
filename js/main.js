@@ -380,7 +380,7 @@ function revealAllMines() {
     }
 }
 
-revealAllMines();
+// revealAllMines();
 
 
 function revealNeighbours() {
