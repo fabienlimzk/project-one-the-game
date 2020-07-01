@@ -7,9 +7,9 @@ boardContainer.appendChild(board);
 let selectAllGrid = document.querySelectorAll(".grid");
 
 let gameOver = false;
-let size = 9;
+let size = 10;
 const mineArray = [];
-let numberOfMines = 10;
+let numberOfMines = 1;
 var data = generateGridData(size);
 
 let displayNumberOfMines= document.getElementById("display_mines_number");
@@ -347,7 +347,7 @@ function clicked(e) {
 
     if (gameWin()) {
         gameOver = true;
-        Alert('Game Won!');
+        alert('Game Won!');
         revealAllMines();
     }
     if (!gameOver) {
