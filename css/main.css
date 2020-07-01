@@ -31,7 +31,7 @@ body {
 }
 
 .grid {
-    background-image: url("/image/grid.png");
+    background-image: url("../image/grid.png");
     background-color: rgb(187, 187, 187);
     border: 2px solid;
     height: 50px;
