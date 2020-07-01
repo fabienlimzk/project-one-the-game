@@ -11,15 +11,32 @@
             <h2 id="title">Minesweeper</h2>
             <h3 id="display_mines_number">Number of mines: </h3>
         </div>
-        <!-- <br>
+        <br>
         <div id="button-container">
-            <button type="button" class="button" id="beginner-btn" onclick="beginnerLevel()">Beginner</button>
-            <button type="button" class="button" id="intermediate-btn">Intermediate</button>
-            <button type="button" class="button" id="expert-btn">Expert</button>
+            <button type="button" class="button" id="beginner-btn" onclick="setLevel(9, 10)">Beginner</button>
+            <button type="button" class="button" id="intermediate-btn" onclick="setLevel(15, 30)">Intermediate</button>
+            <button type="button" class="button" id="expert-btn" onclick="setLevel(20, 50)">Expert</button>
+            <button type="button" class="reset-button" id="reset-btn" onclick="resetButton()">Reset</button>
         </div>
-        <br> -->
+        <br>
         <div id="board-container">
             <!-- game board here -->
+        </div>
+
+        <div id="instruction-container">
+            <h4 id="instruction">Instructions:</h4>
+            <p>
+                For laptop/PC: 
+            </br>
+                - Left Click to reveal grid
+                - Right Click to flag/unflag grid
+            </br>
+            </br>
+                For device: 
+            </br>
+                - Short Press to reveal grid
+                - Long Press to flag/unflag grid
+            </p>
         </div>
         <script src="js/main.js"></script>
     </body>
