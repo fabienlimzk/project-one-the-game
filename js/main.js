@@ -48,7 +48,7 @@ function toggleFlag(e) {
 }
 
 
-let size = 10;
+let size = 9;
 
 function generateGrid(size) {
     let id = 0;
@@ -106,6 +106,7 @@ let numberOfMines = 10;
 function setMine(numberOfMines) {
     while (mineArray.length < numberOfMines) {
         let mineGrid = Math.floor(Math.random() * (size * size));
+        // let mineGrid = Math.floor(Math.random() * 100);
         console.log("mine is in " + mineGrid);
         //if mineGrid already exists
         if (mineArray.includes(mineGrid)) {
@@ -126,7 +127,7 @@ displayNumberOfMines.textContent = "Number of mines: " + numberOfMines;
 
 // Get the mines into the data
 for (let i = 0; i < data.length; i++) {
-    let id = i * numberOfMines;
+    let id = i * size;
     for (let j = 0; j < data[0].length; j++) {
         if (mineArray.includes(id)) {
             data[i][j] = createMine();
@@ -361,8 +362,8 @@ function clicked(e) {
             alert("Game Over");
         } 
     } 
-    
 }
+
 
 let selectAllRows = document.querySelectorAll('.row');
 
@@ -379,7 +380,7 @@ function revealAllMines() {
     }
 }
 
-// revealAllMines();
+revealAllMines();
 
 
 function revealNeighbours() {
@@ -395,17 +396,19 @@ function revealNeighbours() {
     }
 }
 
-// function gameOver() {
-//     let gameOver = true;
+
+// function gameOverr() {
+//     let gameOverr = true;
 //     for (let i = 0; i < data.length; i++) {
 //         for (let j = 0; j < data[i].length; j++) {
-//             if (!data[i][j].isOpened) {
-//                 gameOver = false;
+//             if (!data[i][j].isOpened && !data[i][j].isMine) {
+//                 gameOverr = false;
 //             }
 //         }
 //     }
-//     return gameOver;
+//     return gameOverr;
 // }
+
 
 // function beginnerLevel() {
  
