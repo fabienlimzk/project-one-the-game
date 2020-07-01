@@ -7,15 +7,15 @@ boardContainer.appendChild(board);
 let selectAllGrid = document.querySelectorAll(".grid");
 
 let gameOver = false;
-
 let size = 9;
 const mineArray = [];
 let numberOfMines = 10;
 var data = generateGridData(size);
+
 let displayNumberOfMines= document.getElementById("display_mines_number");
 displayNumberOfMines.textContent = "Number of mines: " + numberOfMines;
 
-
+// right click
 function toggleFlag(e) {
     let allowFlag = true;
 
@@ -55,7 +55,7 @@ function toggleFlag(e) {
     }
 }
 
-// let size;
+
 function generateGrid(size) {
     let id = 0;
     for (let row = 0; row < size; row ++) {
@@ -77,10 +77,8 @@ function generateGrid(size) {
     }
 }
 
-generateGrid(size);
 
-
-//2D Array data
+// 2D Array data
 function generateGridData(size) {
     const gridData = new Array(size).fill('').map(element => new Array(size).fill('').map(el => ''));
     return gridData;
@@ -105,7 +103,7 @@ function createSpace(minesAround) {
     };
 }
 
-// let numberOfMines;
+
 function setMine(numberOfMines) {
     while (mineArray.length < numberOfMines) {
         let mineGrid = Math.floor(Math.random() * (size * size));
@@ -122,8 +120,6 @@ function setMine(numberOfMines) {
     console.log(mineArray);
 }
 
-setMine(numberOfMines);
-
 
 function setMineInGrid() {
     // Get the mines into the data
@@ -138,7 +134,6 @@ function setMineInGrid() {
     }
 }
 
-setMineInGrid();
 
 function getTopLeft(grid, row, col) {
     return grid[row - 1][col - 1];
@@ -340,11 +335,11 @@ function setMinesAroundInGrid() {
     }
 }
 
-setMinesAroundInGrid();
 
 console.log(data);
 
 
+// left click function
 function clicked(e) {
     console.log(e.target.id);
     let row = e.target.dataset.row;
@@ -352,7 +347,7 @@ function clicked(e) {
 
     if (gameWin()) {
         gameOver = true;
-        console.log('game win');
+        Alert('Game Won!');
         revealAllMines();
     }
     if (!gameOver) {
@@ -364,6 +359,7 @@ function clicked(e) {
         } else if (data[row][col].minesAround == 0 && !data[row][col].isMine && !data[row][col].isFlagged) {
             data[row][col].isOpened = true;
             e.target.style.backgroundImage = "url('./image/grid-open.png')";
+            // e.target.innerText = data[row][col].minesAround;
             console.log("hi");
             revealNeighbours();
             // console.log(data);
@@ -405,6 +401,7 @@ function revealNeighbours() {
             if (data[i][j].minesAround === 0) {
                 data[i][j].isOpened = true;
                 currentGrid.style.backgroundImage = "url('./image/grid-open.png')";
+                // currentGrid.innerText = data[i][j].minesAround;
             } 
         }
     }
@@ -424,18 +421,34 @@ function gameWin() {
 }
 
 
+// button functions
 function setLevel(newSize, newNumberOfMines) {
-    let buttons = document.querySelectorAll(".button");
+    let buttons = document.querySelectorAll(".level-button");
     let reset = document.querySelector(".reset-button");
-    mineArray.splice(0, mineArray.length);
-    board.innerHTML = "";
     for (let i = 0; i < buttons.length; i++){
         buttons[i].style.visibility = "hidden";   
     }
     reset.style.visibility = "visible";
-    // gameOver = false;
+    mineArray.splice(0, mineArray.length);
+    board.innerHTML = "";
+    gameOver = false;
     size = newSize;
     numberOfMines = newNumberOfMines;
+    data = generateGridData(size);
+    generateGrid(size);
+    setMine(numberOfMines);
+    setMineInGrid();
+    setMinesAroundInGrid();
+    displayNumberOfMines.textContent = "Number of mines: " + numberOfMines;
+    // console.log(data)
+    // revealAllMines();
+}
+
+
+function resetButton() {
+    mineArray.splice(0, mineArray.length);
+    gameOver = false;
+    board.innerHTML = "";
     data = generateGridData(size);
     generateGrid(size);
     setMine(numberOfMines);
@@ -445,14 +458,12 @@ function setLevel(newSize, newNumberOfMines) {
     // revealAllMines();
 }
 
-function resetButton() {
-    mineArray.splice(0, mineArray.length);
-    board.innerHTML = "";
-    data = generateGridData(size);
-    generateGrid(size);
-    setMine(numberOfMines);
-    setMineInGrid();
-    setMinesAroundInGrid();
-    displayNumberOfMines.textContent = "Number of mines: " + numberOfMines;
-    // revealAllMines();
-}
+// function displayLevel() {
+//     let buttons = document.querySelectorAll(".level-button");
+//     buttons.style.visibility = "visible"; 
+// }
+
+generateGrid(size);
+setMine(numberOfMines);
+setMineInGrid();
+setMinesAroundInGrid();
