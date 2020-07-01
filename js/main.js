@@ -395,7 +395,7 @@ function revealAllMines() {
     }
 }
 
-revealAllMines();
+// revealAllMines();
 
 
 function revealNeighbours() {
@@ -443,7 +443,7 @@ function setLevel(newSize, newNumberOfMines) {
     setMine(numberOfMines);
     setMineInGrid();
     setMinesAroundInGrid();
-    revealAllMines();
+    // revealAllMines();
 }
 
 function resetButton() {
@@ -454,7 +454,7 @@ function resetButton() {
     setMine(numberOfMines);
     setMineInGrid();
     setMinesAroundInGrid();
-    revealAllMines();
+    // revealAllMines();
 }
 
 // function intermediateLevel() {
