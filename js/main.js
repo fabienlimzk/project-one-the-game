@@ -11,7 +11,7 @@ let currentLevel = "";
 let size = 10;
 let mineArray = [];
 // let currentState = [];
-let numberOfMines = 1;
+let numberOfMines = 10;
 var data = generateGridData(size);
 
 let displayNumberOfMines= document.getElementById("display_mines_number");
@@ -447,6 +447,7 @@ function setLevel(newSize, newNumberOfMines, value) {
         currentLevel = "expert";
         console.log(currentLevel);
     }
+    document.getElementById("display_mines_number").style.visibility = "visible";
     document.querySelector("p").style.visibility = "hidden";
     reset.style.visibility = "visible";
     mineArray.splice(0, mineArray.length);
@@ -476,6 +477,7 @@ function resetButton() {
     //         numberOfMines = 69;
     //     }
     // }
+    document.getElementById("display_mines_number").style.visibility = "visible";
     if (currentLevel == "beginner") {
         numberOfMines = 10;
     } else if (currentLevel == "intermediate") {
@@ -486,7 +488,6 @@ function resetButton() {
     // console.log("current state " ,currentState);
     mineArray.splice(0, mineArray.length);
     gameOver = false;
-    reset = true;
     board.innerHTML = "";
     data = generateGridData(size);
     generateGrid(size);

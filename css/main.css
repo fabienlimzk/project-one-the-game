@@ -11,6 +11,7 @@
 
 #display_mines_number {
     font-size: 20px;
+    visibility: hidden;
     /* color: white; */
 }
 
@@ -46,10 +47,6 @@ p, .level-button {
 .reset-button {
     visibility: hidden;
 }
-
-/* .display-button {
-    visibility: visible;
-} */
 
 @media screen and (max-width: 550px) {
     .grid {
