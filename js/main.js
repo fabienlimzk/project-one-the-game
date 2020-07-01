@@ -8,13 +8,13 @@ let selectAllGrid = document.querySelectorAll(".grid");
 
 let gameOver = false;
 
-
-let size = 10;
+let size = 9;
 const mineArray = [];
 let numberOfMines = 10;
 var data = generateGridData(size);
 let displayNumberOfMines= document.getElementById("display_mines_number");
 displayNumberOfMines.textContent = "Number of mines: " + numberOfMines;
+
 
 function toggleFlag(e) {
     let allowFlag = true;
@@ -379,8 +379,6 @@ function clicked(e) {
 }
 
 
-
-
 function revealAllMines() {
     let selectAllRows = document.querySelectorAll('.row');
     for (let i = 0; i < data.length; i++) {
@@ -443,6 +441,7 @@ function setLevel(newSize, newNumberOfMines) {
     setMine(numberOfMines);
     setMineInGrid();
     setMinesAroundInGrid();
+    displayNumberOfMines.textContent = "Number of mines: " + numberOfMines;
     // revealAllMines();
 }
 
@@ -454,13 +453,6 @@ function resetButton() {
     setMine(numberOfMines);
     setMineInGrid();
     setMinesAroundInGrid();
+    displayNumberOfMines.textContent = "Number of mines: " + numberOfMines;
     // revealAllMines();
 }
-
-// function intermediateLevel() {
-
-// }
-
-// function expertLevel() {
-
-// }
