@@ -39,7 +39,7 @@ body {
     font-size: 40px;
 }
 
-.level-button {
+p, .level-button {
     visibility: visible;
 }
 

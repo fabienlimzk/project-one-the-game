@@ -6,9 +6,11 @@ boardContainer.appendChild(board);
 
 let selectAllGrid = document.querySelectorAll(".grid");
 
-let gameOver = false;
+let gameOver = true;
+let currentLevel = "";
 let size = 10;
-const mineArray = [];
+let mineArray = [];
+// let currentState = [];
 let numberOfMines = 1;
 var data = generateGridData(size);
 
@@ -105,19 +107,25 @@ function createSpace(minesAround) {
 
 
 function setMine(numberOfMines) {
-    while (mineArray.length < numberOfMines) {
-        let mineGrid = Math.floor(Math.random() * (size * size));
-        // let mineGrid = Math.floor(Math.random() * 100);
-        console.log("mine is in " + mineGrid);
-        //if mineGrid already exists
-        if (mineArray.includes(mineGrid)) {
-            //continue running the loop again
-            continue;
-        } else {
-            mineArray.push(mineGrid);
+    // console.log("current state2 ", currentState);
+    // if (currentState.length < 1) {
+        while (mineArray.length < numberOfMines) {
+            let mineGrid = Math.floor(Math.random() * (size * size));
+            // let mineGrid = Math.floor(Math.random() * 100);
+            console.log("mine is in " + mineGrid);
+            //if mineGrid already exists
+            if (mineArray.includes(mineGrid)) {
+                //continue running the loop again
+                continue;
+            } else {
+                mineArray.push(mineGrid);
+            }
         }
-    }
-    console.log(mineArray);
+        console.log(mineArray);
+        // currentState = [...mineArray];
+    // } else {
+    //     mineArray = [...currentState];
+    // }
 }
 
 
@@ -422,12 +430,24 @@ function gameWin() {
 
 
 // button functions
-function setLevel(newSize, newNumberOfMines) {
+function setLevel(newSize, newNumberOfMines, value) {
     let buttons = document.querySelectorAll(".level-button");
     let reset = document.querySelector(".reset-button");
     for (let i = 0; i < buttons.length; i++){
-        buttons[i].style.visibility = "hidden";   
+        buttons[i].style.visibility = "hidden";
     }
+
+    if (value == 'beginner') {
+        currentLevel = "beginner";
+        console.log(currentLevel);
+    } else if (value == 'intermediate') {
+        currentLevel = "intermediate";
+        console.log(currentLevel);
+    } else if (value == 'expert') {
+        currentLevel = "expert";
+        console.log(currentLevel);
+    }
+    document.querySelector("p").style.visibility = "hidden";
     reset.style.visibility = "visible";
     mineArray.splice(0, mineArray.length);
     board.innerHTML = "";
@@ -440,14 +460,33 @@ function setLevel(newSize, newNumberOfMines) {
     setMineInGrid();
     setMinesAroundInGrid();
     displayNumberOfMines.textContent = "Number of mines: " + numberOfMines;
+    // currentState = [...mineArray];
     // console.log(data)
-    // revealAllMines();
 }
 
 
 function resetButton() {
+    // let buttons = document.querySelectorAll(".level-button");
+    // for (let i = 0; i < buttons.length; i++){
+    //     if (currentLevel == "beginner") {
+    //         numberOfMines = 10;
+    //     } else if (currentLevel == "intermediate") {
+    //         numberOfMines = 40;
+    //     } else if (currentLevel == "expert") {
+    //         numberOfMines = 69;
+    //     }
+    // }
+    if (currentLevel == "beginner") {
+        numberOfMines = 10;
+    } else if (currentLevel == "intermediate") {
+        numberOfMines = 40;
+    } else if (currentLevel == "expert") {
+        numberOfMines = 69;
+    }
+    // console.log("current state " ,currentState);
     mineArray.splice(0, mineArray.length);
     gameOver = false;
+    reset = true;
     board.innerHTML = "";
     data = generateGridData(size);
     generateGrid(size);
@@ -455,13 +494,8 @@ function resetButton() {
     setMineInGrid();
     setMinesAroundInGrid();
     displayNumberOfMines.textContent = "Number of mines: " + numberOfMines;
-    // revealAllMines();
 }
 
-// function displayLevel() {
-//     let buttons = document.querySelectorAll(".level-button");
-//     buttons.style.visibility = "visible"; 
-// }
 
 generateGrid(size);
 setMine(numberOfMines);

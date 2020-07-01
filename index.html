@@ -11,13 +11,12 @@
             <h2 id="title">Minesweeper</h2>
             <h3 id="display_mines_number">Number of mines: </h3>
         </div>
-        <br>
         <div id="button-container">
-            <button type="button" class="level-button" id="beginner-btn" onclick="setLevel(10, 10)">Beginner</button>
-            <button type="button" class="level-button" id="intermediate-btn" onclick="setLevel(16, 40)">Intermediate</button>
-            <button type="button" class="level-button" id="expert-btn" onclick="setLevel(20, 69)">Expert</button>
+            <p>Choose your level:</p>
+            <button type="button" class="level-button" id="beginner-btn" onclick="setLevel(10, 10, 'beginner')">Beginner</button>
+            <button type="button" class="level-button" id="intermediate-btn" onclick="setLevel(16, 40, 'intermediate')">Intermediate</button>
+            <button type="button" class="level-button" id="expert-btn" onclick="setLevel(20, 69, 'expert')">Expert</button>
             <br>
-            <!-- <button type="button" class="display-button" id="display-levels-btn" onclick="displayLevel()">Display Levels</button> -->
             <button type="button" class="reset-button" id="reset-btn" onclick="resetButton()">Reset</button>
         </div>
         <br>
