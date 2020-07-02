@@ -419,13 +419,13 @@ function setLevel(newSize, newNumberOfMines, value) {
 
     if (value == 'beginner') {
         currentLevel = "beginner";
-        document.querySelector('#choose-level').innerText = "Beginner";
+        document.querySelector('#choose-level').innerText = "Level: Beginner";
     } else if (value == 'intermediate') {
         currentLevel = "intermediate";
-        document.querySelector('#choose-level').innerText = "Intermediate";
+        document.querySelector('#choose-level').innerText = "Level: Intermediate";
     } else if (value == 'expert') {
         currentLevel = "expert";
-        document.querySelector('#choose-level').innerText = "Expert";
+        document.querySelector('#choose-level').innerText = "Level: Expert";
     }
 
     document.getElementById("display_mines_number").style.visibility = "visible";
