@@ -33,11 +33,12 @@ body {
 
 .grid {
     background-image: url("../image/grid.png");
-    background-color: rgb(187, 187, 187);
-    border: 2px solid;
+    background-color: rgb(116, 116, 116);
+    border: 2px solid black;
     height: 50px;
     width: 50px;
     font-size: 40px;
+    color: white;
 }
 
 p, .level-button {
@@ -48,11 +49,11 @@ p, .level-button {
     visibility: hidden;
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 500px) {
     .grid {
-        background-size: 27px;
-        height: 30px;
-        width: 30px;
-        font-size: 20px;
+        background-size: 12px;
+        height: 15px;
+        width: 15px;
+        font-size: 9px;
     }
 }

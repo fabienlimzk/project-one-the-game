@@ -354,8 +354,9 @@ function clicked(e) {
     let col = e.target.dataset.col;
 
     if (gameWin()) {
-        gameOver = true;
         alert('Game Won!');
+        gameOver = true;
+        
         revealAllMines();
     }
     if (!gameOver) {
@@ -363,14 +364,10 @@ function clicked(e) {
             data[row][col].isOpened = true;
             e.target.style.backgroundImage = "url('./image/grid-open.png')";
             e.target.innerText = data[row][col].minesAround;
-            // console.log(data);
         } else if (data[row][col].minesAround == 0 && !data[row][col].isMine && !data[row][col].isFlagged) {
             data[row][col].isOpened = true;
             e.target.style.backgroundImage = "url('./image/grid-open.png')";
-            // e.target.innerText = data[row][col].minesAround;
-            console.log("hi");
             revealNeighbours();
-            // console.log(data);
         } else if (data[row][col].isMine && !data[row][col].isFlagged) {
             data[row][col].isOpened = true;
             e.target.style.backgroundColor = "red";
@@ -447,6 +444,7 @@ function setLevel(newSize, newNumberOfMines, value) {
         currentLevel = "expert";
         console.log(currentLevel);
     }
+
     document.getElementById("display_mines_number").style.visibility = "visible";
     document.querySelector("p").style.visibility = "hidden";
     reset.style.visibility = "visible";
@@ -467,16 +465,6 @@ function setLevel(newSize, newNumberOfMines, value) {
 
 
 function resetButton() {
-    // let buttons = document.querySelectorAll(".level-button");
-    // for (let i = 0; i < buttons.length; i++){
-    //     if (currentLevel == "beginner") {
-    //         numberOfMines = 10;
-    //     } else if (currentLevel == "intermediate") {
-    //         numberOfMines = 40;
-    //     } else if (currentLevel == "expert") {
-    //         numberOfMines = 69;
-    //     }
-    // }
     document.getElementById("display_mines_number").style.visibility = "visible";
     if (currentLevel == "beginner") {
         numberOfMines = 10;
