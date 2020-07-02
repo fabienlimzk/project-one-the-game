@@ -45,13 +45,14 @@ function toggleFlag(e) {
             } else if (numberOfMines === 0) {
                 allowFlag = false;
             }
-        } else {
-            if (data[row][col].isFlagged) {
-                e.target.textContent = "";
-                // numberOfMines += 1;
-                allowFlag = true;
-            }
-        }
+        } 
+        // else {
+        //     if (data[row][col].isFlagged) {
+        //         e.target.textContent = "";
+        //         // numberOfMines += 1;
+        //         allowFlag = true;
+        //     }
+        // }
 
         displayNumberOfMines.textContent = "Number of mines: " + numberOfMines;
     }
@@ -107,25 +108,18 @@ function createSpace(minesAround) {
 
 
 function setMine(numberOfMines) {
-    // console.log("current state2 ", currentState);
-    // if (currentState.length < 1) {
-        while (mineArray.length < numberOfMines) {
-            let mineGrid = Math.floor(Math.random() * (size * size));
-            // let mineGrid = Math.floor(Math.random() * 100);
-            console.log("mine is in " + mineGrid);
-            //if mineGrid already exists
-            if (mineArray.includes(mineGrid)) {
-                //continue running the loop again
-                continue;
-            } else {
-                mineArray.push(mineGrid);
-            }
+    while (mineArray.length < numberOfMines) {
+        let mineGrid = Math.floor(Math.random() * (size * size));
+        console.log("mine is in " + mineGrid);
+        //if mineGrid already exists
+        if (mineArray.includes(mineGrid)) {
+            //continue running the loop again
+            continue;
+        } else {
+            mineArray.push(mineGrid);
         }
-        console.log(mineArray);
-        // currentState = [...mineArray];
-    // } else {
-    //     mineArray = [...currentState];
-    // }
+    }
+    console.log(mineArray);
 }
 
 
@@ -343,7 +337,6 @@ function setMinesAroundInGrid() {
     }
 }
 
-
 console.log(data);
 
 
@@ -358,24 +351,30 @@ function clicked(e) {
             data[row][col].isOpened = true;
             e.target.style.backgroundImage = "url('./image/grid-open.png')";
             e.target.innerText = data[row][col].minesAround;
+            if (gameWin()) {
+                document.querySelector('#display_mines_number').innerText = "Game Won!";
+                gameOver = true;
+                revealAllMines();
+            } 
         } else if (data[row][col].minesAround == 0 && !data[row][col].isMine && !data[row][col].isFlagged) {
             data[row][col].isOpened = true;
             e.target.style.backgroundImage = "url('./image/grid-open.png')";
             revealNeighbours();
+            if (gameWin()) {
+                document.querySelector('#display_mines_number').innerText = "Game Won!";
+                gameOver = true;
+                revealAllMines();
+            } 
         } else if (data[row][col].isMine && !data[row][col].isFlagged) {
             data[row][col].isOpened = true;
             e.target.style.backgroundColor = "red";
             e.target.style.backgroundImage = "url('./image/mine.png')";
             revealAllMines();
             gameOver = true;
-            alert("Game Over");
+            document.querySelector('#display_mines_number').innerText = "Game Over!";
         } 
     }
-    if (gameWin()) {
-        alert('Game Won!');
-        gameOver = true;
-        revealAllMines();
-    } 
+    
 }
 
 
