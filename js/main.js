@@ -16,55 +16,12 @@ var data = generateGridData(size);
 let displayNumberOfMines= document.getElementById("display_mines_number");
 displayNumberOfMines.textContent = "Number of mines: " + numberOfMines;
 
-// right click
-function toggleFlag(e) {
-    let allowFlag = true;
-
-    //prevent the right click menu to show
-    e.preventDefault();
-
-    let row = e.target.dataset.row;
-    let col = e.target.dataset.col;
-
-    if (!gameOver) {
-        if (data[row][col].isOpened) {
-            return;
-        }
-        if (allowFlag) {
-
-            if (data[row][col].isFlagged) {
-                // if isFlagged is true, change to false
-                e.target.style.backgroundImage = "url('./image/grid.png')";
-                numberOfMines += 1;
-                data[row][col].isFlagged = false;
-            } else if (!data[row][col].isFlagged && numberOfMines > 0) {
-                // if isFlagged is false and numberOfMines more than 0, change to true
-                e.target.style.backgroundImage = "url('./image/flag.png')";
-                numberOfMines -= 1; 
-                data[row][col].isFlagged = true;
-            } else if (numberOfMines === 0) {
-                allowFlag = false;
-            }
-        } 
-        // else {
-        //     if (data[row][col].isFlagged) {
-        //         e.target.textContent = "";
-        //         // numberOfMines += 1;
-        //         allowFlag = true;
-        //     }
-        // }
-
-        displayNumberOfMines.textContent = "Number of mines: " + numberOfMines;
-    }
-}
-
-
 function generateGrid(size) {
     let id = 0;
     for (let row = 0; row < size; row ++) {
         const rowElement = document.createElement("div");
         rowElement.className = "row";
-        rowElement.id = `row_number${id}`;
+        rowElement.id = `row_number${id}`; // template literal - string with interpolated JS
         for (let col = 0; col < size; col ++) {
             const grid = document.createElement("div");
             grid.className = "grid";
@@ -80,13 +37,11 @@ function generateGrid(size) {
     }
 }
 
-
 // 2D Array data
 function generateGridData(size) {
     const gridData = new Array(size).fill('').map(element => new Array(size).fill('').map(el => ''));
     return gridData;
 }
-
 
 function createMine() {
     return {
@@ -95,7 +50,6 @@ function createMine() {
         isFlagged: false
     };
 }
-
 
 function createSpace(minesAround) {
     return {
@@ -106,11 +60,10 @@ function createSpace(minesAround) {
     };
 }
 
-
 function setMine(numberOfMines) {
     while (mineArray.length < numberOfMines) {
         let mineGrid = Math.floor(Math.random() * (size * size));
-        console.log("mine is in " + mineGrid);
+        // console.log("mine is in " + mineGrid);
         //if mineGrid already exists
         if (mineArray.includes(mineGrid)) {
             //continue running the loop again
@@ -119,9 +72,8 @@ function setMine(numberOfMines) {
             mineArray.push(mineGrid);
         }
     }
-    console.log(mineArray);
+    // console.log(mineArray);
 }
-
 
 function setMineInGrid() {
     // Get the mines into the data
@@ -135,7 +87,6 @@ function setMineInGrid() {
         }
     }
 }
-
 
 function getTopLeft(grid, row, col) {
     return grid[row - 1][col - 1];
@@ -336,13 +287,11 @@ function setMinesAroundInGrid() {
         }
     }
 }
-
-console.log(data);
-
+// console.log(data);
 
 // left click function
 function clicked(e) {
-    console.log(e.target.id);
+    // console.log(e.target.id);
     let row = e.target.dataset.row;
     let col = e.target.dataset.col;
 
@@ -377,6 +326,47 @@ function clicked(e) {
     
 }
 
+// right click
+function toggleFlag(e) {
+    let allowFlag = true;
+
+    //prevent the right click menu to show
+    e.preventDefault();
+
+    let row = e.target.dataset.row;
+    let col = e.target.dataset.col;
+
+    if (!gameOver) {
+        if (data[row][col].isOpened) {
+            return;
+        }
+        if (allowFlag) {
+
+            if (data[row][col].isFlagged) {
+                // if isFlagged is true, change to false
+                e.target.style.backgroundImage = "url('./image/grid.png')";
+                numberOfMines += 1;
+                data[row][col].isFlagged = false;
+            } else if (!data[row][col].isFlagged && numberOfMines > 0) {
+                // if isFlagged is false and numberOfMines more than 0, change to true
+                e.target.style.backgroundImage = "url('./image/flag.png')";
+                numberOfMines -= 1; 
+                data[row][col].isFlagged = true;
+            } else if (numberOfMines === 0) {
+                allowFlag = false;
+            }
+        } 
+        // else {
+        //     if (data[row][col].isFlagged) {
+        //         e.target.textContent = "";
+        //         // numberOfMines += 1;
+        //         allowFlag = true;
+        //     }
+        // }
+
+        displayNumberOfMines.textContent = "Number of mines: " + numberOfMines;
+    }
+}
 
 function revealAllMines() {
     let selectAllRows = document.querySelectorAll('.row');
@@ -391,9 +381,7 @@ function revealAllMines() {
         }
     }
 }
-
 // revealAllMines();
-
 
 function revealNeighbours() {
     let selectAllRows = document.querySelectorAll('.row');
@@ -410,7 +398,6 @@ function revealNeighbours() {
     }
 }
 
-
 function gameWin() {
     let win = true;
     for (let i = 0; i < data.length; i++) {
@@ -423,7 +410,6 @@ function gameWin() {
     return win;
 }
 
-
 // button functions
 function setLevel(newSize, newNumberOfMines, value) {
     let buttons = document.querySelectorAll(".level-button");
@@ -433,17 +419,17 @@ function setLevel(newSize, newNumberOfMines, value) {
 
     if (value == 'beginner') {
         currentLevel = "beginner";
-        console.log(currentLevel);
+        document.querySelector('#choose-level').innerText = "Beginner";
     } else if (value == 'intermediate') {
         currentLevel = "intermediate";
-        console.log(currentLevel);
+        document.querySelector('#choose-level').innerText = "Intermediate";
     } else if (value == 'expert') {
         currentLevel = "expert";
-        console.log(currentLevel);
+        document.querySelector('#choose-level').innerText = "Expert";
     }
 
     document.getElementById("display_mines_number").style.visibility = "visible";
-    document.getElementById("choose-level").style.visibility = "hidden";
+    // document.getElementById("choose-level").style.visibility = "hidden";
     document.querySelector(".reset-button").style.visibility = "visible";
     mineArray.splice(0, mineArray.length);
     board.innerHTML = "";
@@ -456,10 +442,8 @@ function setLevel(newSize, newNumberOfMines, value) {
     setMineInGrid();
     setMinesAroundInGrid();
     displayNumberOfMines.textContent = "Number of mines: " + numberOfMines;
-    // currentState = [...mineArray];
-    // console.log(data)
+    // console.log(data);
 }
-
 
 function resetButton() {
     let buttons = document.querySelectorAll(".level-button");
@@ -467,9 +451,9 @@ function resetButton() {
         buttons[i].style.visibility = "visible";
     }
 
-    document.getElementById("choose-level").style.visibility = "visible";
+    // document.getElementById("choose-level").style.visibility = "visible";
+    document.querySelector('#choose-level').innerText = "Choose your level:";
     document.querySelector(".reset-button").style.visibility = "hidden";
-
     document.getElementById("display_mines_number").style.visibility = "hidden";
     if (currentLevel == "beginner") {
         numberOfMines = 10;
