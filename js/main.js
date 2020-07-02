@@ -10,7 +10,6 @@ let gameOver = true;
 let currentLevel = "";
 let size = 10;
 let mineArray = [];
-// let currentState = [];
 let numberOfMines = 10;
 var data = generateGridData(size);
 
@@ -31,16 +30,17 @@ function toggleFlag(e) {
         if (data[row][col].isOpened) {
             return;
         }
-        
         if (allowFlag) {
+
             if (data[row][col].isFlagged) {
+                // if isFlagged is true, change to false
                 e.target.style.backgroundImage = "url('./image/grid.png')";
                 numberOfMines += 1;
-                // if false, become true / if true, become false
                 data[row][col].isFlagged = false;
             } else if (!data[row][col].isFlagged && numberOfMines > 0) {
+                // if isFlagged is false and numberOfMines more than 0, change to true
                 e.target.style.backgroundImage = "url('./image/flag.png')";
-                numberOfMines -= 1;
+                numberOfMines -= 1; 
                 data[row][col].isFlagged = true;
             } else if (numberOfMines === 0) {
                 allowFlag = false;
@@ -353,12 +353,6 @@ function clicked(e) {
     let row = e.target.dataset.row;
     let col = e.target.dataset.col;
 
-    if (gameWin()) {
-        alert('Game Won!');
-        gameOver = true;
-        
-        revealAllMines();
-    }
     if (!gameOver) {
         if (data[row][col].minesAround != 0 && !data[row][col].isMine && !data[row][col].isFlagged) {
             data[row][col].isOpened = true;
@@ -376,6 +370,11 @@ function clicked(e) {
             gameOver = true;
             alert("Game Over");
         } 
+    }
+    if (gameWin()) {
+        alert('Game Won!');
+        gameOver = true;
+        revealAllMines();
     } 
 }
 
@@ -429,7 +428,6 @@ function gameWin() {
 // button functions
 function setLevel(newSize, newNumberOfMines, value) {
     let buttons = document.querySelectorAll(".level-button");
-    let reset = document.querySelector(".reset-button");
     for (let i = 0; i < buttons.length; i++){
         buttons[i].style.visibility = "hidden";
     }
@@ -446,8 +444,8 @@ function setLevel(newSize, newNumberOfMines, value) {
     }
 
     document.getElementById("display_mines_number").style.visibility = "visible";
-    document.querySelector("p").style.visibility = "hidden";
-    reset.style.visibility = "visible";
+    document.getElementById("choose-level").style.visibility = "hidden";
+    document.querySelector(".reset-button").style.visibility = "visible";
     mineArray.splice(0, mineArray.length);
     board.innerHTML = "";
     gameOver = false;
@@ -465,7 +463,15 @@ function setLevel(newSize, newNumberOfMines, value) {
 
 
 function resetButton() {
-    document.getElementById("display_mines_number").style.visibility = "visible";
+    let buttons = document.querySelectorAll(".level-button");
+    for (let i = 0; i < buttons.length; i++){
+        buttons[i].style.visibility = "visible";
+    }
+
+    document.getElementById("choose-level").style.visibility = "visible";
+    document.querySelector(".reset-button").style.visibility = "hidden";
+
+    document.getElementById("display_mines_number").style.visibility = "hidden";
     if (currentLevel == "beginner") {
         numberOfMines = 10;
     } else if (currentLevel == "intermediate") {
@@ -473,9 +479,8 @@ function resetButton() {
     } else if (currentLevel == "expert") {
         numberOfMines = 69;
     }
-    // console.log("current state " ,currentState);
     mineArray.splice(0, mineArray.length);
-    gameOver = false;
+    gameOver = true;
     board.innerHTML = "";
     data = generateGridData(size);
     generateGrid(size);
@@ -484,7 +489,6 @@ function resetButton() {
     setMinesAroundInGrid();
     displayNumberOfMines.textContent = "Number of mines: " + numberOfMines;
 }
-
 
 generateGrid(size);
 setMine(numberOfMines);

@@ -12,12 +12,16 @@
             <h3 id="display_mines_number">Number of mines: </h3>
         </div>
         <div id="button-container">
-            <p>Choose your level:</p>
-            <button type="button" class="level-button" id="beginner-btn" onclick="setLevel(10, 10, 'beginner')">Beginner</button>
-            <button type="button" class="level-button" id="intermediate-btn" onclick="setLevel(16, 40, 'intermediate')">Intermediate</button>
-            <button type="button" class="level-button" id="expert-btn" onclick="setLevel(20, 69, 'expert')">Expert</button>
+            <div class="level-btn-container">
+                <h3 id="choose-level">Choose your level:</h3>
+                <button type="button" class="level-button" id="beginner-btn" onclick="setLevel(10, 1, 'beginner')">Beginner</button>
+                <button type="button" class="level-button" id="intermediate-btn" onclick="setLevel(16, 40, 'intermediate')">Intermediate</button>
+                <button type="button" class="level-button" id="expert-btn" onclick="setLevel(20, 69, 'expert')">Expert</button>
             <br>
-            <button type="button" class="reset-button" id="reset-btn" onclick="resetButton()">Reset</button>
+            </div>
+            <div class="reset-btn-container">
+                <button type="button" class="reset-button" id="reset-btn" onclick="resetButton()">Reset</button>
+            </div>
         </div>
         <br>
         <div id="board-container">
@@ -25,18 +29,21 @@
         </div>
         <div id="instruction-container">
             </br>
-            <h4 id="instruction">Instructions:</h4>
+            <h3>Instructions:</h3>
+            <h3>
+                For laptop/PC:
+            </h3>
             <p>
-                For laptop/PC: 
-            </br>
                 - Left Click to reveal grid
-            </br>
+                </br>
                 - Right Click to flag/unflag grid
-            </br>
-            </br>
-                For device: 
-            </br>
+            </p>
+            <h3>
+                For device:
+            </h3>
+            <p>
                 - Short Press to reveal grid
+                </br>
                 - Long Press to flag/unflag grid
             </p>
         </div>

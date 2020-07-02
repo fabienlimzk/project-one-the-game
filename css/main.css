@@ -2,6 +2,12 @@
     box-sizing: border-box;
 }
 
+body {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    /* background-color: black; */
+}
+
 #title {
     font-size: 30px;
     text-align: center;
@@ -9,15 +15,18 @@
     /* color: white; */
 }
 
-#display_mines_number {
+#display_mines_number, #choose-level {
     font-size: 20px;
     visibility: hidden;
     /* color: white; */
 }
 
-body {
-    text-align: center;
-    /* background-color: black; */
+#choose-level, .level-button {
+    visibility: visible;
+}
+
+.reset-button {
+    visibility: hidden;
 }
 
 #board { 
@@ -41,12 +50,8 @@ body {
     color: white;
 }
 
-p, .level-button {
-    visibility: visible;
-}
-
-.reset-button {
-    visibility: hidden;
+p {
+    font-size: 15px;
 }
 
 @media screen and (max-width: 500px) {
@@ -55,5 +60,17 @@ p, .level-button {
         height: 15px;
         width: 15px;
         font-size: 9px;
+    }
+
+    #title {
+        font-size: 23px;
+    }
+    
+    #display_mines_number, #choose-level {
+        font-size: 12px;
+    }
+
+    p {
+        font-size: 11px;
     }
 }
