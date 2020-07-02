@@ -297,6 +297,7 @@ function clicked(e) {
             e.target.style.backgroundImage = "url('./image/grid-open.png')";
             e.target.innerText = data[row][col].minesAround;
             if (gameWin()) {
+                document.getElementById("display_mines_number").style.color = "blue";
                 document.querySelector('#display_mines_number').innerText = "Game Won!";
                 gameOver = true;
                 revealAllMines();
@@ -306,6 +307,7 @@ function clicked(e) {
             e.target.style.backgroundImage = "url('./image/grid-open.png')";
             revealNeighbours();
             if (gameWin()) {
+                document.getElementById("display_mines_number").style.color = "blue";
                 document.querySelector('#display_mines_number').innerText = "Game Won!";
                 gameOver = true;
                 revealAllMines();
@@ -316,6 +318,7 @@ function clicked(e) {
             e.target.style.backgroundImage = "url('./image/mine.png')";
             revealAllMines();
             gameOver = true;
+            document.getElementById("display_mines_number").style.color = "red";
             document.querySelector('#display_mines_number').innerText = "Game Over!";
         } 
     }
@@ -422,6 +425,7 @@ function setLevel(newSize, newNumberOfMines, value) {
     }
 
     document.getElementById("display_mines_number").style.visibility = "visible";
+    document.getElementById("display_mines_number").style.color = "black";
     document.querySelector(".reset-button").style.visibility = "visible";
     mineArray.splice(0, mineArray.length);
     board.innerHTML = "";
@@ -443,7 +447,7 @@ function resetButton() {
         buttons[i].style.visibility = "visible";
     }
 
-    document.querySelector('#choose-level').innerText = "Choose your level:";
+    document.querySelector('#choose-level').innerText = "Pick a level to start:";
     document.querySelector(".reset-button").style.visibility = "hidden";
     document.getElementById("display_mines_number").style.visibility = "hidden";
     if (currentLevel == "beginner") {
