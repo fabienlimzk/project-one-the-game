@@ -51,7 +51,7 @@ p, .level-button {
 
 @media screen and (max-width: 500px) {
     .grid {
-        background-size: 12px;
+        background-size: 11px;
         height: 15px;
         width: 15px;
         font-size: 9px;
