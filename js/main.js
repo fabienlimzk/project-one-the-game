@@ -63,16 +63,14 @@ function createSpace(minesAround) {
 function setMine(numberOfMines) {
     while (mineArray.length < numberOfMines) {
         let mineGrid = Math.floor(Math.random() * (size * size));
-        // console.log("mine is in " + mineGrid);
-        //if mineGrid already exists
+        // if mineGrid already exists
         if (mineArray.includes(mineGrid)) {
-            //continue running the loop again
+            // continue running the loop again
             continue;
         } else {
             mineArray.push(mineGrid);
         }
     }
-    // console.log(mineArray);
 }
 
 function setMineInGrid() {
@@ -287,11 +285,9 @@ function setMinesAroundInGrid() {
         }
     }
 }
-// console.log(data);
 
 // left click function
 function clicked(e) {
-    // console.log(e.target.id);
     let row = e.target.dataset.row;
     let col = e.target.dataset.col;
 
@@ -330,7 +326,7 @@ function clicked(e) {
 function toggleFlag(e) {
     let allowFlag = true;
 
-    //prevent the right click menu to show
+    // prevent the right click menu to show
     e.preventDefault();
 
     let row = e.target.dataset.row;
@@ -341,7 +337,6 @@ function toggleFlag(e) {
             return;
         }
         if (allowFlag) {
-
             if (data[row][col].isFlagged) {
                 // if isFlagged is true, change to false
                 e.target.style.backgroundImage = "url('./image/grid.png')";
@@ -381,7 +376,6 @@ function revealAllMines() {
         }
     }
 }
-// revealAllMines();
 
 function revealNeighbours() {
     let selectAllRows = document.querySelectorAll('.row');
@@ -392,7 +386,6 @@ function revealNeighbours() {
             if (data[i][j].minesAround === 0) {
                 data[i][j].isOpened = true;
                 currentGrid.style.backgroundImage = "url('./image/grid-open.png')";
-                // currentGrid.innerText = data[i][j].minesAround;
             } 
         }
     }
@@ -429,7 +422,6 @@ function setLevel(newSize, newNumberOfMines, value) {
     }
 
     document.getElementById("display_mines_number").style.visibility = "visible";
-    // document.getElementById("choose-level").style.visibility = "hidden";
     document.querySelector(".reset-button").style.visibility = "visible";
     mineArray.splice(0, mineArray.length);
     board.innerHTML = "";
@@ -451,7 +443,6 @@ function resetButton() {
         buttons[i].style.visibility = "visible";
     }
 
-    // document.getElementById("choose-level").style.visibility = "visible";
     document.querySelector('#choose-level').innerText = "Choose your level:";
     document.querySelector(".reset-button").style.visibility = "hidden";
     document.getElementById("display_mines_number").style.visibility = "hidden";
