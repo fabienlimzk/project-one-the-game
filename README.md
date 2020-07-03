@@ -24,4 +24,4 @@
 - [Play online here](https://fabienlimzk.github.io/sei23-project-one-minesweeper/)
 
 ## 4. Unsolved Problems/Things to improve
-- Not able to only reveal the nearby grids that where was clicked.
+- Not able to reveal only the nearby grids that was clicked.
