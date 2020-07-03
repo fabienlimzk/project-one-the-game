@@ -25,3 +25,4 @@
 
 ## 4. Unsolved Problems/Things to improve
 - Not able to reveal only the nearby grids that was clicked.
+- Stopwatch that starts when the first grid was clicked, stops when the mines are revealed or all the grids are completed.
