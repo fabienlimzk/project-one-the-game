@@ -67,10 +67,14 @@ body {
     background-color: rgb(187, 187, 187);
 }
 
-a {
-    color: black;
-    text-decoration: none;
-    font-weight: bold;
+.a_footer {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#copyright{
+  color: black;
 }
 
 @media screen and (max-width: 768px) {
