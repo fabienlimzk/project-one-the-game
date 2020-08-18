@@ -9,7 +9,7 @@
 - JavaScript
 
 ## 2. Approach Taken
-- Started by creating three main functions. First function will generate a 10 by 10 gameboard. Second function that will generate 10 mines, push it into an mineArray and populate it on the grid. The last function which is assigned to a event listener that will turn the empty grid grey when clicked and to turn the mine red when clicked. 
+- Started by creating three main functions. First function will generate a 10 by 10 gameboard. Second function that will generate 10 mines, push it into an mineArray and populate it on the grid. The last function which is assigned to an event listener that will turn the empty grid grey when clicked and to turn the mine red when clicked. 
 - Then created a function that will generate a 2D Array of Objects to store which grid has mine, is opened, is flagged and number of mines around. I then created three functions. First function which will take the data from mineArray and pushed it into the 2D Array, second function will calculate the number of mines around each grid and third function will push the number of mines into the 2D Array. Then use DOM manipilation to display information on the respective grid.
 - Able to flag and unflag the grid, also limit the number of grid based on the number of mines. When flagged, the total number of mines displayed on the top will decreased and when unflagged, the total number of mines will increased. 
 - Able to reveal the empty grid 
